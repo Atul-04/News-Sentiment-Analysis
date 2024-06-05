@@ -1,0 +1,13 @@
+numpy
+pandas
+seaborn
+matplotlib
+tensorflow
+plotly
+streamlit
+scikit-learn
+joblib
+wordcloud
+keras
+selenium
+webdriver-manager
