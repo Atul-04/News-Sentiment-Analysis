@@ -1,6 +1,20 @@
 from imports import*
 from data_preprocessing import*
 
+def delete_files():
+    files_to_delete = ['label_encoder.pkl', 'logreg_model.pkl', 'max_length.pkl', 'tokenizer.pkl']
+    for file in files_to_delete:
+        try:
+            os.remove(file)
+            print(f"Deleted {file}")
+        except FileNotFoundError:
+            print(f"{file} not found")
+        except Exception as e:
+            print(f"Error deleting {file}: {e}")
+
+# Delete the files before training the model
+delete_files()
+
 df = pd.read_csv('Train_Dataset.csv')
 df['sentiment'] = df['sentiment'].fillna("neutral")
 df['text'] = df['text'].apply(clean)

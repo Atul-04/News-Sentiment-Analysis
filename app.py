@@ -2,21 +2,7 @@ from imports import*
 from data_preprocessing import*
 from web_scrapper import*
 
-def delete_files():
-    files_to_delete = ['label_encoder.pkl', 'logreg_model.pkl', 'max_length.pkl', 'tokenizer.pkl']
-    for file in files_to_delete:
-        try:
-            os.remove(file)
-            print(f"Deleted {file}")
-        except FileNotFoundError:
-            print(f"{file} not found")
-        except Exception as e:
-            print(f"Error deleting {file}: {e}")
-
-# Delete the files before training the model
-delete_files()
-
-subprocess.run(["python", "model.py"])
+# subprocess.run(["python", "model.py"])
 
 logreg = joblib.load('logreg_model.pkl')
 with open('tokenizer.pkl', 'rb') as handle:
