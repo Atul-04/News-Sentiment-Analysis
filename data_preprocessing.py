@@ -9,14 +9,16 @@ def clean(text):
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-def preprocess_texts(texts):
-    # Tokenize the texts
-    tokenizer = Tokenizer()
-    tokenizer.fit_on_texts(texts)
+def preprocess_texts_train(texts, tokenizer=None):
+    if tokenizer is None:
+        tokenizer = Tokenizer()
+        tokenizer.fit_on_texts(texts)
     sequences = tokenizer.texts_to_sequences(texts)
-
-    # Padding the sequences
     max_length = max([len(seq) for seq in sequences])
     padded_sequences = pad_sequences(sequences, maxlen=max_length, padding='post')
+    return tokenizer, padded_sequences, max_length
 
-    return tokenizer, padded_sequences,max_length
+def preprocess_new_texts(texts, tokenizer, max_length):
+    sequences = tokenizer.texts_to_sequences(texts)
+    padded_sequences = pad_sequences(sequences, maxlen=max_length, padding='post')
+    return padded_sequences

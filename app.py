@@ -22,7 +22,7 @@ if url:
 
     # Clean and preprocess titles
     cleaned_titles = [clean(title) for title in titles]
-    padded_titles = preprocess_texts(cleaned_titles, tokenizer, max_length)
+    padded_titles = preprocess_new_texts(cleaned_titles, tokenizer, max_length)
 
     # Make predictions
     predictions = logreg.predict(padded_titles)

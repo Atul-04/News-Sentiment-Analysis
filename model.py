@@ -18,7 +18,7 @@ delete_files()
 df = pd.read_csv('Train_Dataset.csv')
 df['sentiment'] = df['sentiment'].fillna("neutral")
 df['text'] = df['text'].apply(clean)
-train_tokenizer,train_pad_sequence,max_length = preprocess_texts(df['text'])
+train_tokenizer,train_pad_sequence,max_length = preprocess_texts_train(df['text'])
 label_encoder = LabelEncoder()
 labels = label_encoder.fit_transform(df['sentiment'])
 
