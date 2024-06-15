@@ -11,3 +11,6 @@ wordcloud
 keras
 selenium
 webdriver-manager
+nltk
+transformers
+torch

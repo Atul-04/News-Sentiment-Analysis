@@ -1,9 +1,8 @@
 from imports import *
 
-
-def scrape(url, driver_path='geckodriver.exe'):
+def scrape_sports(url, driver_path='chromedriver.exe'):
     # Initialize the WebDriver
-    driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     driver.get(url)
 
     # Wait until the page is fully loaded
@@ -52,9 +51,3 @@ def scrape(url, driver_path='geckodriver.exe'):
     driver.quit()
     
     return titles, links
-
-# # Usage example
-# url = "https://www.indiatoday.in/search/sports"
-# titles, links = scrape(url)
-# print("Titles:", titles)
-# print("Links:", links)

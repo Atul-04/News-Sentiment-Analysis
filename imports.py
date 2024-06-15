@@ -11,6 +11,7 @@ import plotly.colors as colors
 import streamlit as st
 from sklearn.linear_model import LogisticRegression
 import joblib
+import nltk
 import subprocess
 from sklearn.preprocessing import LabelEncoder
 from wordcloud import WordCloud
@@ -36,3 +37,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver import Firefox,Chrome,Edge,Safari
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+import torch
