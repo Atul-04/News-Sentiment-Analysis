@@ -13,61 +13,63 @@ def scrape_sports(url, driver_path='chromedriver.exe'):
     links = []
 
     try:
-        # Wait for the div elements to be present and visible
-        if(url=="https://www.indiatoday.in/search/sports"):
-            wait = WebDriverWait(driver, 20)
-            
-            # Attempt using CLASS_NAME
+        wait = WebDriverWait(driver, 20)
+        
+        if url == "https://www.indiatoday.in/search/sports":
             divs = wait.until(EC.visibility_of_all_elements_located((By.CLASS_NAME, 'B1S3_content__wrap__9mSB6')))
-            
-            # Iterate through the found div elements and extract the desired data
             for div in divs:
-                # Find the h3 tag within the div
-                h3_tag = div.find_element(By.TAG_NAME, 'h3')
-                titles.append(h3_tag.text)
-                # Find the link within the h3 tag
-                link = h3_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
-                links.append(link)
-        elif(url=="https://indianexpress.com/section/technology/"):
-            wait = WebDriverWait(driver, 20)
+                try:
+                    h3_tag = div.find_element(By.TAG_NAME, 'h3')
+                    titles.append(h3_tag.text)
+                    link = h3_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
+                    links.append(link)
+                except NoSuchElementException:
+                    continue
+        
+        elif url == "https://indianexpress.com/section/technology/":
             ul_element = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, 'article-list')))
             li_elements = ul_element.find_elements(By.TAG_NAME, 'li')
             for li in li_elements:
-                h3_tag = div.find_element(By.TAG_NAME, 'h3')
-                titles.append(h3_tag.text)
-                # Find the link within the h3 tag
-                link = h3_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
-                links.append(link)
-        else:
-            wait = WebDriverWait(driver, 20)
+                try:
+                    h3_tag = li.find_element(By.TAG_NAME, 'h3')
+                    titles.append(h3_tag.text)
+                    link = h3_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
+                    links.append(link)
+                except NoSuchElementException:
+                    continue
+        elif url == "https://indianexpress.com/section/entertainment/":
             divs = wait.until(EC.visibility_of_all_elements_located((By.CLASS_NAME, 'articles')))
-            div=divs.find_elements(By.CLASS_NAME,'img-context')
             for div in divs:
-            # Find the h3 tag within the div
-                h2_tag = div.find_element(By.TAG_NAME, 'h2')
-                titles.append(h3_tag.text)
-            # Find the link within the h3 tag
-                link = h2_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
-                links.append(link)
-
-
-
+                try:
+                    h2_tag = div.find_element(By.CLASS_NAME, 'title')
+                    titles.append(h2_tag.text)
+                    link = h2_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
+                    links.append(link)
+                except NoSuchElementException:
+                    continue
+        else:
+            divs = wait.until(EC.visibility_of_all_elements_located((By.CLASS_NAME, 'articles')))
+            for div in divs:
+                try:
+                    h2_tag = div.find_element(By.TAG_NAME, 'h2')
+                    titles.append(h2_tag.text)
+                    link = h2_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
+                    links.append(link)
+                except NoSuchElementException:
+                    continue
+    
     except TimeoutException:
         print("Elements not found using CLASS_NAME. Trying XPath.")
-
         try:
-            # Attempt using XPath
             divs = wait.until(EC.visibility_of_all_elements_located((By.XPATH, '//*[@class="B1S3_B1__s3_widget__1S13T"]')))
-            
-            # Iterate through the found div elements and extract the desired data
             for div in divs:
-                # Find the h3 tag within the div
-                h3_tag = div.find_element(By.TAG_NAME, 'h3')
-                titles.append(h3_tag.text)
-                # Find the link within the h3 tag
-                link = h3_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
-                links.append(link)
-                
+                try:
+                    h3_tag = div.find_element(By.TAG_NAME, 'h3')
+                    titles.append(h3_tag.text)
+                    link = h3_tag.find_element(By.TAG_NAME, 'a').get_attribute('href')
+                    links.append(link)
+                except NoSuchElementException:
+                    continue
         except TimeoutException:
             print("Elements not found using XPath.")
     
@@ -75,3 +77,9 @@ def scrape_sports(url, driver_path='chromedriver.exe'):
     driver.quit()
     
     return titles, links
+
+# Usage example
+# url = "https://indianexpress.com/section/technology/"
+# titles, links = scrape_sports(url)
+# print("Titles:", titles)
+# print("Links:", links)

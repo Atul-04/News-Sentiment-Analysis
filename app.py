@@ -36,13 +36,13 @@ if domain!=None:
     if domain=="Sports":
         titles, links = scrape_sports(url="https://www.indiatoday.in/search/sports", driver_path='chromedriver.exe')
     elif domain=="Tech":
-        titles, links = scrape_sports(url="https://www.indiatoday.in/search/sports", driver_path='chromedriver.exe')
+        titles, links = scrape_sports(url="https://indianexpress.com/section/technology/", driver_path='chromedriver.exe')
     elif domain=="Politics":
-        titles, links = scrape_sports(url="https://www.indiatoday.in/search/sports", driver_path='chromedriver.exe')
+        titles, links = scrape_sports(url="https://indianexpress.com/section/political-pulse/", driver_path='chromedriver.exe')
     elif domain=="Entertainment":
-        titles, links = scrape_sports(url="https://www.indiatoday.in/search/sports", driver_path='chromedriver.exe')
+        titles, links = scrape_sports(url="https://indianexpress.com/section/entertainment/", driver_path='chromedriver.exe')
     elif domain=="Business":
-        titles, links = scrape_sports(url="https://www.indiatoday.in/search/sports", driver_path='chromedriver.exe')
+        titles, links = scrape_sports(url="https://indianexpress.com/section/business/", driver_path='chromedriver.exe')
 
     if use_logistic:
         # Clean and preprocess titles
